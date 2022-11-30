@@ -1,0 +1,20 @@
+load("hw1_2\MIT6_057IAP19_hw2\noisyData.mat");
+figure;
+smooth3 = rectFilter(x, 3);
+smooth5 = rectFilter(x, 5);
+smooth7 = rectFilter(x, 7);
+smooth9 = rectFilter(x, 9);
+smooth11 = rectFilter(x, 11);
+plot(x,'bo');
+hold on;
+plot(smooth3);
+hold on;
+plot(smooth5);
+hold on;
+plot(smooth7);
+hold on;
+plot(smooth9);
+hold on;
+plot(smooth11);
+legend('Original Data', 'Smooth with window 3', 'Smooth with window 5', 'Smooth with window 7', 'Smooth with window 9', 'Smooth with window 11');
+
