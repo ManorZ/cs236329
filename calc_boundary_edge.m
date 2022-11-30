@@ -16,4 +16,10 @@ boundary_face = [];
 ef_adj_mat = create_edge_face_adj_mat(face);
 boundary_edge = find(sum(ef_adj_mat, 2)==1);
 [~, boundary_face] = find(ef_adj_mat(boundary_edge,:));
+
+n_vertex = max(face(:));
+boundary_v2 = mod(boundary_edge, n_vertex);
+boundary_v1 = (boundary_edge - boundary_v2) / n_vertex + 1;
+boundary_edge = [boundary_v1, boundary_v2];
+
 end
