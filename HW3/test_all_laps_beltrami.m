@@ -17,7 +17,8 @@ for k = 1:length(file_names)
 
   face_center = calc_face_center(vertex, face);
 
-  vertex_func = (1:length(vertex))' * 2;
+  %vertex_func = (1:length(vertex))' * 2;
+  vertex_func = vertex;
   
   fprintf(1, 'calc lap ... ');
   face_lap = calc_lap(vertex, face) * vertex_func;
