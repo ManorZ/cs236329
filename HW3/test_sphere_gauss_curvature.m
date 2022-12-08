@@ -1,5 +1,5 @@
 clear; close all; clc;
-file_names = dir(fullfile('hw2_data/shpere*.off'));
+file_names = dir(fullfile('hw2_data/sphere*.off'));
 for k = 1:length(file_names)
   base_file_name = file_names(k).name;
   full_file_name = fullfile('hw2_data', base_file_name);
@@ -19,7 +19,10 @@ for k = 1:length(file_names)
   
   curvature_error = mean(abs(ones(n_vertex, 1) - curvature));
 
+  fprintf(1, 'MAE=%f ... ', curvature_error);
+
   options.vertex_color = curvature;
+  figure;
   plot_triangle_3d_mesh(vertex, face, options);
 
   plot_title = sprintf('%s MAE %f', base_file_name(1:end-4), curvature_error);
@@ -30,6 +33,6 @@ for k = 1:length(file_names)
   saveas(gcf, save_png_file);
   save_fig_file = fullfile('figs', sprintf('%s_gauss_curvature.fig', base_file_name(1:end-4)));
   savefig(gcf, save_fig_file);
-  close all;
+  %close all;
   fprintf(1, 'done.\n');
 end
