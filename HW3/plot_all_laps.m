@@ -15,14 +15,18 @@ for k = 1:length(file_names)
   n_face = size(face, 1);
   n_vertex = size(vertex, 1);
 
-  vertex_area = calc_vertex_barycentric_cell_area(vertex, face);
+  %vertex_sca_func = vertex(:,3);
+  %vertex_sca_func = vertex(:,2);
+  %vertex_sca_func = vertex(:,1);
+  vertex_sca_func = calc_vertex_barycentric_cell_area(vertex, face);
+
   face_center = calc_face_center(vertex, face);
   
   face_grad = calc_grad(vertex, face);
   face_lap = calc_lap(vertex, face);
   
-  face_grad = face_grad * vertex_area;
-  face_lap = face_lap * vertex_area;
+  face_grad = face_grad * vertex_sca_func;
+  face_lap = face_lap * vertex_sca_func;
 
   face_grad = reshape(face_grad, n_face, 3);
 
@@ -32,10 +36,18 @@ for k = 1:length(file_names)
   plot_title = base_file_name(1:end-4);
   title(plot_title);
   colorbar;
-  save_png_file = fullfile('pngs', sprintf('%s_bary_area_lap.png', base_file_name(1:end-4)));
-  saveas(gcf, save_png_file);
-  save_fig_file = fullfile('figs', sprintf('%s_bary_area_lap.fig', base_file_name(1:end-4)));
-  savefig(gcf, save_fig_file);
+
+  %save_name = sprintf('%s_lap_z', base_file_name(1:end-4));
+  %save_name = sprintf('%s_lap_y', base_file_name(1:end-4));
+  %save_name = sprintf('%s_lap_x', base_file_name(1:end-4));
+  save_name = sprintf('%s_lap_bary_area', base_file_name(1:end-4));
+
+  save_name_png = fullfile('pngs/laps', sprintf('%s.png',save_name));
+  save_name_fig = fullfile('figs/laps', sprintf('%s.fig',save_name));
+
+  saveas(gcf, save_name_png);
+  savefig(gcf, save_name_fig);
+
   close all;
   fprintf(1, 'done.\n');
 end
